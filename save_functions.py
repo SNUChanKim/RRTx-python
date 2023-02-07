@@ -93,18 +93,18 @@ def save_rrt_path(S: CSpace, node: RRTNode, root: RRTNode, robot: RobotData, fil
         else:
             ef.save_end_of_trajectory(S, writer, robot.robot_edge_for_plotting, robot.dist_along_robot_edge_for_plotting)
             
-        i = 0
-        while this_node != root and this_node.rrt_parent_used and i < 1000:
-            ef.save_edge_trajectory(S, writer, this_node.rrt_parent_edge)
-            this_node = this_node.rrt_parent_edge.end_node
-            i += 1
-        
-        if S.space_has_time:
-            writer.writerow(list(this_node.position[:3]))
-        else:
-            writer.writerow(list(this_node.position[:2]))
-        
-        fptr.close()
+    i = 0
+    while this_node != root and this_node.rrt_parent_used and i < 1000:
+        ef.save_edge_trajectory(S, writer, this_node.rrt_parent_edge)
+        this_node = this_node.rrt_parent_edge.end_node
+        i += 1
+    
+    if S.space_has_time:
+        writer.writerow(list(this_node.position[:3]))
+    else:
+        writer.writerow(list(this_node.position[:2]))
+    
+    fptr.close()
                 
 def save_data(data, file_name):
     fptr = open(file_name, "w")
